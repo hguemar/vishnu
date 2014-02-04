@@ -395,8 +395,16 @@ json_deserialize(const std::string& encodedJson) {
   profile->OUT = json_integer_value(jsonValue);
 
   json_t* params = json_object_get(jsonObject, "PARAMS");
-  size_t index;
+  size_t index(0);
+
+#if JANSSON_VERSION_HEX >= 0x020500
   json_array_foreach(params, index, jsonValue) {
+#else
+  for(;
+      index < json_array_size(params) &&
+      (jsonValue = json_array_get(params, index));
+      ++index) {
+#endif
     profile->params.push_back(json_string_value(jsonValue));
   }
 
