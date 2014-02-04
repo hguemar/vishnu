@@ -517,7 +517,6 @@ extractMachineServersFromLine(const std::vector<std::string>& uriv, std::vector<
   std::vector<std::string> tokens2;
   std::vector<std::string> tmp;
   tmp.push_back("heartbeat");
-  std::vector<std::string>::iterator it;
   std::string uri;
 
   BOOST_FOREACH(const std::string& v, uriv) {
