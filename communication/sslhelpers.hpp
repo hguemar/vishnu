@@ -41,7 +41,8 @@ public:
     : listeningPort(port),
       privateKey(privKey),
       certificate(cert),
-      internalServiceUri(internalSrvUri)
+      internalServiceUri(internalSrvUri),
+      clientBioHandler(0)
   { }
 
   ~TlsServer() {}
@@ -123,7 +124,8 @@ public:
             const std::string& ca = "")
     : serverAddr(host),
       serverPort(port),
-      cafile(ca)
+      cafile(ca),
+      sslBio(0)
   {
   }
 
