@@ -35,7 +35,7 @@ class TlsServer {
 
 public:
   TlsServer(const std::string& privKey,
-            const std::string cert,
+            const std::string& cert,
             int port,
             const std::string& internalSrvUri)
     : listeningPort(port),
