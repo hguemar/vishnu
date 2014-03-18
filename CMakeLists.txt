@@ -388,3 +388,4 @@ endif(ENABLE_PYTHON OR ENABLE_JAVA)
 # module that adds an uninstall target
 include(CMakeUninstall)
 add_subdirectory(contrib)
+add_subdirectory(XMS/src)

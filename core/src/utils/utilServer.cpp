@@ -613,6 +613,15 @@ vishnu::showVersion(std::string server){
   return EXIT_SUCCESS;
 }
 
+int
+vishnu::showVersion() {
+  using boost::format;
+  std::string batchInfo;
+  std::cout << format("vishnu %1%\n%2% %3%\n") % VISHNU_VERSION
+    % VISHNU_BATCH_SCHEDULER
+    % VISHNU_BATCH_SCHEDULER_VERSION;
+  return EXIT_SUCCESS;
+}
 
 /**
  * @brief Validate session key and return details on the user and the session
@@ -707,5 +716,3 @@ vishnu::validateAuthKey(const std::string& authKey,
   info.user_aclogin = *rowResultIter++;
   info.user_achome = *rowResultIter++;
 }
-
-
