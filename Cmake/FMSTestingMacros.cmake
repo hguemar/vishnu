@@ -49,6 +49,7 @@ macro( fms_test NAME )
       ${PROJECT_BINARY_DIR}/include
       ${UMS_TEST_DIR}
       ${FMS_TEST_DIR}
+      ${XMS_SED_SOURCE_DIR}
       )
 
     # link libraries

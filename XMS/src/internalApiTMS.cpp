@@ -30,7 +30,7 @@
 
 #include "utilServer.hpp"
 #include "BatchServer.hpp"
-#include "ServerTMS.hpp"
+#include "ServerXMS.hpp"
 #include "JobServer.hpp"
 #include "WorkServer.hpp"
 #include "ListJobServer.hpp"
@@ -38,7 +38,9 @@
 #include "ListProgressServer.hpp"
 #include "JobOutputServer.hpp"
 #include "WorkServer.hpp"
-#include "internalApi.hpp"
+#include "internalApiTMS.hpp"
+#include "MapperRegistry.hpp"
+
 
 namespace bfs=boost::filesystem; // an alias for boost filesystem namespace
 
@@ -80,7 +82,7 @@ solveSubmitJob(diet_profile_t* pb) {
     std::string cmd = mapper->finalize(mapperkey);
 
     //FIXME: decode job and options
-    ServerTMS* server = ServerTMS::getInstance();
+    ServerXMS* server = ServerXMS::getInstance();
 
     JobServer jobServer(authKey, machineId, server->getSedConfig());
     jobServer.setDebugLevel(server->getDebugLevel()); // Set the debug level
@@ -138,7 +140,7 @@ solveCancelJob(diet_profile_t* pb) {
     mapper->code(optionSerialized, mapperkey);
     std::string cmd = mapper->finalize(mapperkey);
 
-    ServerTMS* server = ServerTMS::getInstance();
+    ServerXMS* server = ServerXMS::getInstance();
     JobServer jobServer(authKey, machineId, server->getSedConfig());
 
     JsonObject options(optionSerialized);
@@ -188,7 +190,7 @@ solveJobInfo(diet_profile_t* pb) {
     mapper->code(jobId, mapperkey);
     std::string cmd = mapper->finalize(mapperkey);
 
-    JobServer jobServer(authKey, machineId, ServerTMS::getInstance()->getSedConfig());
+    JobServer jobServer(authKey, machineId, ServerXMS::getInstance()->getSedConfig());
     std::string jobSerialized = JsonObject::serialize(jobServer.getJobInfo(jobId));
 
     diet_string_set(pb,1, jobSerialized);
@@ -231,10 +233,8 @@ solveListOfQueues(diet_profile_t* pb) {
   TMS_Data::ListQueues_ptr listQueues = NULL;
 
 
-
-  ListQueuesServer queryQueues(authKey,
-                               ServerTMS::getInstance()->getBatchType(),
-                               ServerTMS::getInstance()->getBatchVersion(),
+  ListQueuesServer queryQueues(ServerXMS::getInstance()->getBatchType(),
+                               ServerXMS::getInstance()->getBatchVersion(),
                                optionSerialized);
 
   try {
@@ -524,9 +524,7 @@ solveAddWork(diet_profile_t* pb) {
     }
 
     //FIXME: WorkServer workServer = WorkServer(work, sessionServer);
-    //FIXME: workServer.add(ServerTMS::getInstance()->getVishnuId(), workop);
-    WorkServer workServer = WorkServer(authKey, workop->getMachineId(), work);
-    workServer.add(ServerTMS::getInstance()->getVishnuId(), workop);
+    //FIXME: workServer.add(ServerXMS::getInstance()->getVishnuId(), workop);
 
     //To serialize the user object
     ::ecorecpp::serializer::serializer _ser;
