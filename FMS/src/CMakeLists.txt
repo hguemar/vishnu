@@ -12,6 +12,7 @@ include_directories(client api
   ${COMMUNICATION_INCLUDE_DIR}
   ${VISHNU_SOURCE_DIR}/FMS/src/sed
   ${LIBJANSSON_INCLUDE_DIR}
+  ${XMS_SED_SOURCE_DIR}
 )
 
 set(client_SRCS client/FileProxy
