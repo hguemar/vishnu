@@ -263,8 +263,6 @@ ServerXMS::initMap(const std::string& mid) {
   // Remove ?
   functionPtr = solveGetListOfJobs;
   mcb[SERVICES_TMS[GETLISTOFJOBS_ALL]] = functionPtr;
-  functionPtr = solveSubmitJob;
-  mcb[SERVICES_TMS[JOBSUBMIT_AUTOM]] = functionPtr;
   functionPtr = solveAddWork;
   mcb[SERVICES_TMS[ADDWORK]] = functionPtr;
 }
