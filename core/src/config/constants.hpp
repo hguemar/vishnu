@@ -55,7 +55,9 @@ namespace vishnu {
     SERVER_SSL_CERTICATE,
     SSL_CA,
     SUBSCRIBE,
-    STANDALONE
+    STANDALONE,
+    HAS_UMS,
+    HAS_TMS
   } param_type_t;
 
   /**
