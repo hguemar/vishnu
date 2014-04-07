@@ -98,36 +98,35 @@ ServerXMS::init(SedConfig& cfg) {
       msedConfig->getRequiredConfigValue<std::string>(vishnu::BATCHVERSION, mbatchVersion);
     }
 
-    std::string batchDefaultConfigFile;
-    if (msedConfig->getConfigValue(vishnu::DEFAULTBATCHCONFIGFILE, batchDefaultConfigFile)) {
-      switch(mbatchType) {
-      case TORQUE:
-        getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#PBS");
-        break;
-      case LOADLEVELER:
-        getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "# @");
-        break;
-      case SLURM:
-        getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#SBATCH");
-        break;
-      case LSF:
-        getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#BSUB");
-        break;
-      case SGE:
-        getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#$");
-        break;
-      case PBSPRO:
-        getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#PBS");
-        break;
-      case DELTACLOUD:
-        //No yet supported
-        break;
-      case POSIX:
-        //No yet supported
-        break;
-      default:
-        break;
-      }
+  std::string batchDefaultConfigFile;
+  if (msedConfig->getConfigValue(vishnu::DEFAULTBATCHCONFIGFILE, batchDefaultConfigFile)) {
+    switch(mbatchType) {
+    case TORQUE:
+      getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#PBS");
+      break;
+    case LOADLEVELER:
+      getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "# @");
+      break;
+    case SLURM:
+      getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#SBATCH");
+      break;
+    case LSF:
+      getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#BSUB");
+      break;
+    case SGE:
+      getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#$");
+      break;
+    case PBSPRO:
+      getConfigOptions(batchDefaultConfigFile.c_str(), mdefaultBatchOption, "#PBS");
+      break;
+    case DELTACLOUD:
+      //No yet supported
+      break;
+    case POSIX:
+      //No yet supported
+      break;
+    default:
+      break;
     }
   }
 
