@@ -48,23 +48,23 @@ if(COMPILE_SERVER_FMS)
     ${UMS_SERVER_SOURCE_DIR}
     ${FMS_SERVER_SOURCE_DIR})
 
-  set(sed_SRCS sed/fmssed.cpp
-    sed/ServerFMS.cpp
-    sed/getInfosSrv.cpp
-    sed/getContentSrv.cpp
-    sed/headSrv.cpp
-    sed/tailSrv.cpp
-    sed/mkdirSrv.cpp
-    sed/mkfileSrv.cpp
-    sed/rmdirSrv.cpp
-    sed/rmfileSrv.cpp
-    sed/chgrpSrv.cpp
-    sed/chmodSrv.cpp
-    sed/lsSrv.cpp
-    sed/transferSrv.cpp
-    sed/MonitorFMS.cpp
-    ${COMMUNICATION_INCLUDE_DIR}/CommServer.cpp
-)
+#  set(sed_SRCS sed/fmssed.cpp
+#    sed/ServerFMS.cpp
+#    sed/getInfosSrv.cpp
+#    sed/getContentSrv.cpp
+#    sed/headSrv.cpp
+#    sed/tailSrv.cpp
+#    sed/mkdirSrv.cpp
+#    sed/mkfileSrv.cpp
+#    sed/rmdirSrv.cpp
+#    sed/rmfileSrv.cpp
+#    sed/chgrpSrv.cpp
+#    sed/chmodSrv.cpp
+#    sed/lsSrv.cpp
+#    sed/transferSrv.cpp
+#    sed/MonitorFMS.cpp
+#    ${COMMUNICATION_INCLUDE_DIR}/CommServer.cpp
+#)
 
   set(server_SRCS
     server/File.cpp
@@ -75,17 +75,23 @@ if(COMPILE_SERVER_FMS)
     server/ScpCommand.cpp
     server/RsyncCommand.cpp)
 
-  add_executable(fmssed ${sed_SRCS} ${server_SRCS})
-  install(TARGETS fmssed DESTINATION ${SBIN_INSTALL_DIR})
-  target_link_libraries(fmssed 
-    ${DATABASE_LIBS}
-    ${Boost_LIBRARIES}
-    vishnu-core
-    vishnu-core-server
-    vishnu-ums-server
-    ${LDAP_LIBRARIES}
-    emf4cpp-vishnu
-    ${LIBCRYPT_LIB}
-    ${ZMQ_LIBRARIES}
-    zmq_helper)
+  add_library(vishnu-fms-server ${server_SRCS})
+  set_target_properties(vishnu-fms-server PROPERTIES VERSION ${VISHNU_VERSION})
+  install(TARGETS vishnu-fms-server DESTINATION ${LIB_INSTALL_DIR})
+
+  target_link_libraries(vishnu-fms-server vishnu-core vishnu-core-server ${CMAKE_DL_LIBS})
+
+#  add_executable(fmssed ${sed_SRCS} ${server_SRCS})
+#  install(TARGETS fmssed DESTINATION ${SBIN_INSTALL_DIR})
+#  target_link_libraries(fmssed 
+#    ${DATABASE_LIBS}
+#    ${Boost_LIBRARIES}
+#    vishnu-core
+#    vishnu-core-server
+#    vishnu-ums-server
+#    ${LDAP_LIBRARIES}
+#    emf4cpp-vishnu
+#    ${LIBCRYPT_LIB}
+#    ${ZMQ_LIBRARIES}
+#    zmq_helper)
 endif(COMPILE_SERVER_FMS)
