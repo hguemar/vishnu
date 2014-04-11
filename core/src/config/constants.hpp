@@ -58,7 +58,8 @@ namespace vishnu {
     SUBSCRIBE,
     STANDALONE,
     HAS_UMS,
-    HAS_TMS
+    HAS_TMS,
+    HAS_FMS
   } param_type_t;
 
   /**
